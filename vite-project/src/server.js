@@ -1,11 +1,15 @@
 import express from "express";
 import ViteExpress from "vite-express";
+import cors from "cors";
 
 const app = express();
+const allowedOrigin = process.env.CLIENT_URL || "http://localhost:3000";
+
+app.use(cors({ origin: allowedOrigin, credentials: true }));
 
 const transactions = [];
 
-app.get("/transaction", (_, res) => res.send(transactions));
+app.get("/transactions", (_, res) => res.send(transactions));
 app.post("/transaction", (req, res) => {
   console.log("🚀 ~ req:", req);
 
